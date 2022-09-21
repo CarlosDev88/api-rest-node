@@ -110,4 +110,19 @@ router.put("/:inventarioId", async (req, res) => {
   }
 });
 
+router.get("/:inventarioId", async (req, res) => {
+  try {
+    let inventario = await Inventario.findById(req.params.inventarioId);
+
+    if (!inventario) {
+      return res.status(400).send("Inventario no existe");
+    }
+
+    res.send(inventario);
+  } catch (error) {
+    console.log("error-->", error);
+    res.status(500).send(`ocurrio un error ${error}`);
+  }
+});
+
 module.exports = router;

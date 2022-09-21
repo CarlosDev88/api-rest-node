@@ -49,4 +49,19 @@ router.put("/:tipoEquipoId", async (req, res) => {
   }
 });
 
+router.get("/:tipoId", async (req, res) => {
+  try {
+    let tipoEquipo = await TipoEquipo.findById(req.params.tipoId);
+
+    if (!tipoEquipo) {
+      return res.status(400).send("Usuario no existe");
+    }
+
+    res.send(tipoEquipo);
+  } catch (error) {
+    console.log("error-->", error);
+    res.status(500).send(`ocurrio un error ${error}`);
+  }
+});
+
 module.exports = router;

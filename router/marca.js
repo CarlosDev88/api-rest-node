@@ -49,4 +49,19 @@ router.put("/:marcaId", async (req, res) => {
   }
 });
 
+router.get("/:marcaId", async (req, res) => {
+  try {
+    let marca = await Marca.findById(req.params.marcaId);
+
+    if (!marca) {
+      return res.status(400).send("Usuario no existe");
+    }
+
+    res.send(marca);
+  } catch (error) {
+    console.log("error-->", error);
+    res.status(500).send(`ocurrio un error ${error}`);
+  }
+});
+
 module.exports = router;

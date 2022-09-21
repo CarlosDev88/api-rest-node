@@ -67,4 +67,19 @@ router.put("/:usuarioId", async (req, res) => {
   }
 });
 
+router.get("/:usuarioId", async (req, res) => {
+  try {
+    let usuario = await Usuario.findById(req.params.usuarioId);
+
+    if (!usuario) {
+      return res.status(400).send("Usuario no existe");
+    }
+
+    res.send(usuario);
+  } catch (error) {
+    console.log("error-->", error);
+    res.status(500).send(`ocurrio un error ${error}`);
+  }
+});
+
 module.exports = router;
